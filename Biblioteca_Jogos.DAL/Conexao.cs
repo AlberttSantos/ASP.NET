@@ -16,7 +16,7 @@ namespace Biblioteca_Jogos.DAL
         public static void Conectar()
         {   
             if (connection.State == System.Data.ConnectionState.Closed)
-            {
+            {                
                 connection.Open();
             }
         }
@@ -24,7 +24,7 @@ namespace Biblioteca_Jogos.DAL
         {
             if (connection.State == System.Data.ConnectionState.Open)
             {
-                connection.Close();
+                connection.Close();               
             }
         }
     }

@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Biblioteca_Jogos.DAL
 {
-    public class UsuarioDao
+    public class JogoDao
     {
-        public Usuario ObterUsuarioESenha(string nomeUsuario, string senha)
+        public List<Jogo> ObterTodosJogo()
         {
             try
             {
@@ -19,31 +19,33 @@ namespace Biblioteca_Jogos.DAL
 
                 //Add conexão no comando
                 command.Connection = Conexao.connection;
-                command.CommandText = "SELECT * FROM USUARIOS WHERE NOME = @Usuario AND SENHA = @Senha";
-
-                //Add parametros da consulta
-                command.Parameters.AddWithValue("@Usuario", nomeUsuario);
-                command.Parameters.AddWithValue("@Senha", senha);
+                command.CommandText = "SELECT * FROM JOGO";
 
                 Conexao.Conectar();
 
                 //Executa a query e retorna os dados do banco "ExecuteReader"
                 var reader = command.ExecuteReader();
 
-                Usuario usuario = null;
+                List<Jogo> jogos = new List<Jogo>();
 
                 //Enquanto estiver lendo
                 while (reader.Read())
                 {
-                    usuario = new Usuario();
+                    Jogo jogo = new Jogo();
 
-                    usuario.Id = (int)reader["id"];
-                    usuario.Nome = (string)reader["nome"];
-                    usuario.Senha = (string)reader["senha"];
-                    usuario.Perfil = Convert.ToChar(reader["perfil"]);
+                    jogo.Id = (int)reader["id"];
+                    jogo.Titulo = reader["titulo"].ToString();
+                    jogo.Imagem = reader["imagem"].ToString();
+
+                    //Se o valor do banco for nulo salva nulo na variavei dataCompra, se não salva a data
+                    jogo.DataCompra = reader["dataCompra"] == DBNull.Value ? (DateTime?)null : (DateTime)reader["dataCompra"];
+                    jogo.ValorPago = reader["valorPago"] == DBNull.Value ? (double?)null : (double)reader["valorPago"];
+
+                    //Adiciona o jogo na lista
+                    jogos.Add(jogo);
                 }
 
-                return usuario;
+                return jogos;
             }
             catch (Exception)
             {
@@ -53,8 +55,10 @@ namespace Biblioteca_Jogos.DAL
             finally
             {
                 Conexao.Desconectar();
+               
             }
         }
+
 
     }
 }

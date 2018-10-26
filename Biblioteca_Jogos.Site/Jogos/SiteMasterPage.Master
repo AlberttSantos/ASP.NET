@@ -1,0 +1,28 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="SiteMasterPage.Master.cs" Inherits="Biblioteca_Jogos.Site.Jogos.Site" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+    <link href="../Content/bootstrap.min.css" rel="stylesheet" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>      
+            <asp:Menu ID="Menu" runat="server">
+                <Items>
+                    <asp:MenuItem Text="Jogos" Value="Jogos">
+                        <asp:MenuItem NavigateUrl="~/Jogos/Catalogo.aspx" Text="Catalogo" Value="Catalogo"></asp:MenuItem>
+                        <asp:MenuItem NavigateUrl="~/Jogos/Cadastro.aspx" Text="Cadastro" Value="Cadastro"></asp:MenuItem>
+                    </asp:MenuItem>
+                </Items>
+            </asp:Menu>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </form>
+</body>
+</html>

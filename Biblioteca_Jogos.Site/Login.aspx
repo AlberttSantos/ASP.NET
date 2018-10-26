@@ -21,7 +21,11 @@
             </div>
             <br /> 
             <div>
-                <asp:Button ID="btnLogin" Text="Entrar" runat="server" OnClick="btnLogin_Click" />
+                <asp:Button class="btn btn-outline-success" ID="btnLogin" Text="Entrar" runat="server" OnClick="btnLogin_Click" />
+            </div>
+            <br />  
+            <div>   
+                <asp:Label ID="LblStatus" runat="server"> </asp:Label>
             </div>
         </div>
     </form>
