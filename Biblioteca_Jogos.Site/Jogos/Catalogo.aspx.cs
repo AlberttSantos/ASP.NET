@@ -17,11 +17,11 @@ namespace Biblioteca_Jogos.Site.Jogos
             //testar post back - só vai carregar quando carrega a primeira vez a pagina
             if (!Page.IsPostBack)
             {
-                CarregarJogosRepeater();
+                CarregarJogosNoRepeater();
             }
         }
 
-        private void CarregarJogosRepeater()
+        private void CarregarJogosNoRepeater()
         {
             _jogoBo = new JogoBo();
 

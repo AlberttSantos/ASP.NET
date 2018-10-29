@@ -75,9 +75,13 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\ImagensJogos\fifa18.jpg" />
+    <Content Include="Content\ImagensJogos\forza.jpg" />
     <Content Include="Content\Jogos\Catalogo.css" />
     <Content Include="Global.asax" />
     <Content Include="Jogos\Catalogo.aspx" />
+    <Content Include="Jogos\DetalhesJogo.aspx" />
+    <Content Include="Jogos\EdicaoJogo.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -136,6 +140,20 @@
     </Compile>
     <Compile Include="Jogos\Catalogo.aspx.designer.cs">
       <DependentUpon>Catalogo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Jogos\DetalhesJogo.aspx.cs">
+      <DependentUpon>DetalhesJogo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Jogos\DetalhesJogo.aspx.designer.cs">
+      <DependentUpon>DetalhesJogo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Jogos\EdicaoJogo.aspx.cs">
+      <DependentUpon>EdicaoJogo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Jogos\EdicaoJogo.aspx.designer.cs">
+      <DependentUpon>EdicaoJogo.aspx</DependentUpon>
     </Compile>
     <Compile Include="Jogos\SiteMasterPage.Master.cs">
       <DependentUpon>SiteMasterPage.Master</DependentUpon>

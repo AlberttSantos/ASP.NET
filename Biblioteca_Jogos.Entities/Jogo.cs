@@ -12,6 +12,8 @@ namespace Biblioteca_Jogos.Entities
         public string Titulo { get; set; }
         public double? ValorPago { get; set; }
         public string Imagem { get; set; }
-        public DateTime? DataCompra { get; set; }       
+        public DateTime? DataCompra { get; set; }
+        public Genero Id_Genero { get; set; }
+        public Editor Id_Editor { get; set; }
     }
 }
