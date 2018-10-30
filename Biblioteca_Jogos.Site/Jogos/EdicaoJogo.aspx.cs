@@ -18,30 +18,52 @@ namespace Biblioteca_Jogos.Site.Jogos
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
             if (!Page.IsPostBack)
             {
-                CarregarEditoresDdl();
-                CareegarGenerosDdl();
+                CarregarJogo();    
             }
 
         }
         protected void BtnGravar_Click(object sender, EventArgs e)
         {
-            _jogoBo.EditarJogos(_jogo);
+            // _jogoBo.EditarJogos(_jogo);
         }
 
-        public void CarregarEditoresDdl()
+        public void CarregarJogo()
         {
+            string id_jogo = Request.QueryString["id"];
+            _jogoBo = new JogoBo();
+
+            var jogoSelecionado  = _jogoBo.CarregarJogoSelecionado(id_jogo);
+
+            TxtTitulo.Text = jogoSelecionado.Titulo;
+            TxtValorPago.Text = jogoSelecionado.ValorPago.ToString();
+            DataCompra.Text = Convert.ToDateTime(jogoSelecionado.DataCompra).ToString("dd/MM/yyyy");
+            string id_editor = Convert.ToString( jogoSelecionado.Id_Editor);
+
+            CarregarEditoresDdl(id_editor);
+            CareegarGenerosDdl();
+        }
+
+        public void CarregarEditoresDdl(string id_editor)
+        {            
             _editorBo = new EditorBo();
 
-            string id_jogo = Request.QueryString["id"];
+            var editores = _editorBo.ObterTodosEditores();
+            
+            var item = DdlEditor.Items.FindByValue(id_editor);
+            if (item != null)
+                item.Selected = true;
 
-            DdlEditor.DataSource = _editorBo.ObterTodosEditores();
-            DdlEditor.DataBind();            
+            DdlEditor.DataSource = editores;
+
+            DdlEditor.DataBind();
         }
-        
+
         public void CareegarGenerosDdl()
         {
+            string id_jogo = Request.QueryString["id"];
             _generoBo = new GeneroBo();
 
             DdlGenero.DataSource = _generoBo.ObterTodosGeneros();

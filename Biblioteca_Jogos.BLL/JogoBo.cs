@@ -19,17 +19,11 @@ namespace Biblioteca_Jogos.BLL
             return _jogoDao.ObterTodosJogos();
         }
 
-        public void EditarJogos(Jogo jogo)
+        public Jogo CarregarJogoSelecionado(string id_jogo)
         {
-            _jogoDao = new JogoDao();            
+            _jogoDao = new JogoDao();   
 
-            var linhasAfetadas = _jogoDao.EditarJogos(jogo);
-
-            if (linhasAfetadas == 0)
-            {
-                throw new EdicaoNaoEfetuadaException();
-            }
-
+           return _jogoDao.CarregarJogoSelecionado(id_jogo);
         }
     }
 }

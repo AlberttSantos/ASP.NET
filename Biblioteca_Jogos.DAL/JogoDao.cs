@@ -59,28 +59,39 @@ namespace Biblioteca_Jogos.DAL
             }
         }
 
-        public int EditarJogos(Jogo jogos)
+        public Jogo CarregarJogoSelecionado(string id_jogos)
         {
             try
             {
                 SqlCommand command = new SqlCommand();
                 command.Connection = Conexao.connection;
-                command.CommandText = "INSERT INTO JOGO (id, titulo, valorPago, imagem, dataCompra, id_editor, id_genero) VALUES (@titulo, @valorPago, @imagem, @dataCompra, @id_editor, @id_genero)";
+                command.CommandText = "SELECT * FROM JOGO WHERE id = @id";
 
-                Jogo jogo = new Jogo();
-
-                command.Parameters.AddWithValue("@id", jogo.Id);
-                command.Parameters.AddWithValue("@titulo", jogo.Titulo);
-                command.Parameters.AddWithValue("@valorPago", jogo.ValorPago);
-                command.Parameters.AddWithValue("@imagem", jogo.Imagem);
-                command.Parameters.AddWithValue("@dataCompra", jogo.DataCompra);
-                command.Parameters.AddWithValue("@id_editor", jogo.Id_Editor.Id);
-                command.Parameters.AddWithValue("@id_genero", jogo.Id_Genero.Id);
-
+                command.Parameters.AddWithValue("@id", id_jogos);
+                
                 Conexao.Conectar();
 
                 //Retorna a quantidade de linhas afetadas
-                return command.ExecuteNonQuery();
+                var reader =  command.ExecuteReader();
+
+                Jogo jogo = new Jogo();
+
+                while (reader.Read())
+                {                   
+                    jogo.Id = (int)reader["id"];
+                    jogo.Titulo = reader["titulo"].ToString();
+                    jogo.Imagem = reader["imagem"].ToString();
+
+                    //Se o valor do banco for nulo salva nulo na variavei dataCompra, se não salva a data
+                    jogo.DataCompra = reader["dataCompra"] == DBNull.Value ? (DateTime?)null : (DateTime)reader["dataCompra"];
+                    jogo.ValorPago = reader["valorPago"] == DBNull.Value ? (double?)null : Convert.ToDouble(reader["valorPago"]);
+
+                    jogo.Id_Editor = (int)reader["id_editor"];
+                    jogo.Id_Genero = (int)reader["id_genero"];
+                }
+
+                return jogo;
+
             }
             catch (Exception)
             {
