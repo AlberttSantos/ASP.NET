@@ -1,9 +1,12 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Jogos/SiteMasterPage.Master" AutoEventWireup="true" CodeBehind="Catalogo.aspx.cs" Inherits="Biblioteca_Jogos.Site.Jogos.Catalogo" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <link href="../Content/bootstrap.min.css" rel="stylesheet" />
     <link href="../Content/Jogos/Catalogo.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <h2 style="margin-top: 50px; margin-left: 10px" > Catálogo de Jogos</h2>
+    <hr />
     <asp:Repeater runat="server" ID="RepeaterJogos">
         <HeaderTemplate></HeaderTemplate>
         <ItemTemplate>

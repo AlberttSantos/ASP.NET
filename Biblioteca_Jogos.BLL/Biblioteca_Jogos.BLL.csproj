@@ -44,6 +44,7 @@
     <Compile Include="Autenticacao\LoginBo.cs" />
     <Compile Include="EditorBo.cs" />
     <Compile Include="Exceptions\EdicaoNaoEfetuadaException.cs" />
+    <Compile Include="Exceptions\JogoNaoEncontradoException.cs" />
     <Compile Include="Exceptions\UsuarioNaoCadastradoExceptions.cs" />
     <Compile Include="GeneroBo.cs" />
     <Compile Include="JogoBo.cs" />

@@ -1,9 +1,8 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Jogos/SiteMasterPage.Master" AutoEventWireup="true" CodeBehind="EdicaoJogo.aspx.cs" Inherits="Biblioteca_Jogos.Site.Jogos.EdicaoJogo" %>
-
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Jogos/SiteMasterPage.Master" AutoEventWireup="true" CodeBehind="CadastroJogo.aspx.cs" Inherits="Biblioteca_Jogos.Site.Jogos.CadastroJogo" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div style="margin-left: 20px; margin-top: 30px">
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server"> 
+    <div style="margin-left: 20px; margin-top: 100px">
         <div class="form-group">
             <label>Titulo:</label>
             <asp:TextBox runat="server" ID="TxtTitulo" CssClass="form-control col-md-4" />
@@ -21,7 +20,7 @@
         </div>
         <div class="form-group">
             <label>Imagem:</label>
-            <asp:FileUpload runat="server" />
+            <asp:FileUpload runat="server" ID="FileUploadImagem" />
         </div>
         <div class="form-group">
             <label>Genero:</label>
@@ -36,6 +35,7 @@
         <asp:Button Text="Gravar" runat="server" ID="BtnGravar" CssClass="btn btn-primary" OnClick="BtnGravar_Click" />
         <br />
         <asp:Label ID="LblStatus" runat="server" />
+        <asp:Label ID="LblResultado" runat="server" />
     </div>
     <br />
     <asp:ValidationSummary runat="server" />

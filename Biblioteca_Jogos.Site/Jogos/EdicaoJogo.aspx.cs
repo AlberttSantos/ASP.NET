@@ -21,7 +21,9 @@ namespace Biblioteca_Jogos.Site.Jogos
 
             if (!Page.IsPostBack)
             {
-                CarregarJogo();    
+                CarregarJogo();
+                //CarregarEditoresDdl();
+                //CareegarGenerosDdl();
             }
 
         }
@@ -32,38 +34,49 @@ namespace Biblioteca_Jogos.Site.Jogos
 
         public void CarregarJogo()
         {
-            string id_jogo = Request.QueryString["id"];
-            _jogoBo = new JogoBo();
+            //Obtem ID da querystring
+            var id = ObeterIdJogo();
 
-            var jogoSelecionado  = _jogoBo.CarregarJogoSelecionado(id_jogo);
+            _jogoBo = new JogoBo();        
+
+            var jogoSelecionado = _jogoBo.CarregarJogoSelecionado(id);
 
             TxtTitulo.Text = jogoSelecionado.Titulo;
             TxtValorPago.Text = jogoSelecionado.ValorPago.ToString();
             DataCompra.Text = Convert.ToDateTime(jogoSelecionado.DataCompra).ToString("dd/MM/yyyy");
-            string id_editor = Convert.ToString( jogoSelecionado.Id_Editor);
-
-            CarregarEditoresDdl(id_editor);
-            CareegarGenerosDdl();
+            DdlEditor.SelectedValue = jogoSelecionado.Id_Editor.ToString();
+            DdlGenero.SelectedValue = jogoSelecionado.Id_Genero.ToString();
         }
 
-        public void CarregarEditoresDdl(string id_editor)
-        {            
+        public int ObeterIdJogo()
+        {
+            int id = 0;
+            string id_query = Request.QueryString["id"];
+            if (int.TryParse(id_query, out id))
+            {
+                if (id <= 0)
+                {
+                    throw new Exception("Id inválido");
+                }
+
+                return id;
+            }
+            else
+            {
+                throw new Exception("Id inválido");
+            }
+        }
+
+        public void CarregarEditoresDdl()
+        {
             _editorBo = new EditorBo();
 
-            var editores = _editorBo.ObterTodosEditores();
-            
-            var item = DdlEditor.Items.FindByValue(id_editor);
-            if (item != null)
-                item.Selected = true;
-
-            DdlEditor.DataSource = editores;
-
+            DdlEditor.DataSource = _editorBo.ObterTodosEditores();
             DdlEditor.DataBind();
         }
 
         public void CareegarGenerosDdl()
         {
-            string id_jogo = Request.QueryString["id"];
             _generoBo = new GeneroBo();
 
             DdlGenero.DataSource = _generoBo.ObterTodosGeneros();

@@ -18,7 +18,7 @@ namespace Biblioteca_Jogos.DAL
                 SqlCommand command = new SqlCommand();
 
                 command.Connection = Conexao.connection;
-                command.CommandText = "SELECT * FROM EDITOR";
+                command.CommandText = "SELECT * FROM EDITOR ORDER BY NOME";
 
                 Conexao.Conectar();
 
@@ -43,9 +43,7 @@ namespace Biblioteca_Jogos.DAL
             }
             finally
             {
-                Conexao.Desconectar();
-                // command.CommandText = "SELECT e.id, e.nome FROM jogo j, editor e where j.id_editor = e.id and e.id = @id_jogo";
-                //command.Parameters.AddWithValue("@id_jogo", id_jogo);
+                Conexao.Desconectar();                
             }
         }
 

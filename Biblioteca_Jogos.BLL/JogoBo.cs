@@ -19,11 +19,40 @@ namespace Biblioteca_Jogos.BLL
             return _jogoDao.ObterTodosJogos();
         }
 
-        public Jogo CarregarJogoSelecionado(string id_jogo)
+        public Jogo CarregarJogoSelecionado(int id_jogo)
         {
-            _jogoDao = new JogoDao();   
+            _jogoDao = new JogoDao();
+            var jogo = _jogoDao.CarregarJogoSelecionado(id_jogo);
 
-           return _jogoDao.CarregarJogoSelecionado(id_jogo);
+            if(jogo == null)
+            {
+                throw new JogoNaoEncontradoException();
+            }
+
+            return jogo;
+        }
+
+        public void InserirNovoJogo(Jogo jogo)
+        {
+            ValidarJogo(jogo);
+
+            _jogoDao = new JogoDao();
+            int linhasAfetadas = _jogoDao.InserirJogo(jogo);
+
+            if (linhasAfetadas == 0)
+            {
+                throw new UsuarioNaoCadastradoExceptions();
+            }
+        }
+
+        public void ValidarJogo(Jogo jogo)
+        {
+            if (string.IsNullOrWhiteSpace(jogo.Titulo)
+                || jogo.Id_Editor == 0
+                || jogo.Id_Genero == 0)
+            {
+                throw new UsuarioNaoCadastradoExceptions();
+            }
         }
     }
 }

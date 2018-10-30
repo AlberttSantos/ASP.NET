@@ -59,7 +59,7 @@ namespace Biblioteca_Jogos.DAL
             }
         }
 
-        public Jogo CarregarJogoSelecionado(string id_jogos)
+        public Jogo CarregarJogoSelecionado(int id_jogos)
         {
             try
             {
@@ -74,10 +74,12 @@ namespace Biblioteca_Jogos.DAL
                 //Retorna a quantidade de linhas afetadas
                 var reader =  command.ExecuteReader();
 
-                Jogo jogo = new Jogo();
+                Jogo jogo = null;
 
                 while (reader.Read())
-                {                   
+                {
+                    jogo = new Jogo();
+
                     jogo.Id = (int)reader["id"];
                     jogo.Titulo = reader["titulo"].ToString();
                     jogo.Imagem = reader["imagem"].ToString();
@@ -91,7 +93,6 @@ namespace Biblioteca_Jogos.DAL
                 }
 
                 return jogo;
-
             }
             catch (Exception)
             {
@@ -105,5 +106,37 @@ namespace Biblioteca_Jogos.DAL
            
         }
 
+        public int InserirJogo(Jogo jogo)
+        {
+            try
+            {
+                var command = new SqlCommand();
+                command.Connection = Conexao.connection;
+                command.CommandText = @"INSERT INTO JOGO (titulo, valorPago, imagem, dataCompra, id_editor, id_genero)
+                                      VALUES (@titulo, @valorPago, @imagem, @dataCompra, @id_editor, @id_genero)";
+
+                command.Parameters.AddWithValue("@titulo", jogo.Titulo);
+                command.Parameters.AddWithValue("@valorPago", jogo.ValorPago);
+                command.Parameters.AddWithValue("@imagem", jogo.Imagem);
+                command.Parameters.AddWithValue("@dataCompra", jogo.DataCompra);
+                command.Parameters.AddWithValue("@id_editor", jogo.Id_Editor);
+                command.Parameters.AddWithValue("@id_genero", jogo.Id_Genero);
+
+                Conexao.Conectar();
+
+                //Executa a query e retorna o numero de linhas afetadas
+                return command.ExecuteNonQuery(); 
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                Conexao.Desconectar();
+            }
+     
+        }
     }
 }

@@ -17,7 +17,7 @@
                 <Items>
                     <asp:MenuItem Text="Jogos" Value="Jogos">
                         <asp:MenuItem NavigateUrl="~/Jogos/Catalogo.aspx" Text="Catalogo" Value="Catalogo"></asp:MenuItem>
-                        <asp:MenuItem NavigateUrl="~/Jogos/Cadastro.aspx" Text="Cadastro" Value="Cadastro"></asp:MenuItem>
+                        <asp:MenuItem NavigateUrl="~/Jogos/CadastroJogo.aspx" Text="Cadastro" Value="Cadastro"></asp:MenuItem>
                     </asp:MenuItem>
                 </Items>
             </asp:Menu>

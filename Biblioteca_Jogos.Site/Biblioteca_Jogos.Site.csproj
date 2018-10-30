@@ -79,6 +79,7 @@
     <Content Include="Content\ImagensJogos\forza.jpg" />
     <Content Include="Content\Jogos\Catalogo.css" />
     <Content Include="Global.asax" />
+    <Content Include="Jogos\CadastroJogo.aspx" />
     <Content Include="Jogos\Catalogo.aspx" />
     <Content Include="Jogos\DetalhesJogo.aspx" />
     <Content Include="Jogos\EdicaoJogo.aspx" />
@@ -133,6 +134,13 @@
   <ItemGroup>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Jogos\CadastroJogo.aspx.cs">
+      <DependentUpon>CadastroJogo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Jogos\CadastroJogo.aspx.designer.cs">
+      <DependentUpon>CadastroJogo.aspx</DependentUpon>
     </Compile>
     <Compile Include="Jogos\Catalogo.aspx.cs">
       <DependentUpon>Catalogo.aspx</DependentUpon>
