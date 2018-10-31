@@ -12,5 +12,19 @@ namespace Biblioteca_Jogos.Site
         protected void Application_Start(object sender, EventArgs e)
         {
         }
+
+        protected void Session_Start(object sender, EventArgs e)
+        {
+            //Se o usuário estiver autenticado
+            if (HttpContext.Current.Request.IsAuthenticated)
+            {
+                //Desloga usuário
+                FormsAuthentication.SignOut();
+
+                //Deireciona para pagina de login
+                FormsAuthentication.RedirectToLoginPage();
+                HttpContext.Current.Response.End();
+            }
+        }
     }
 }

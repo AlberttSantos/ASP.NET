@@ -33,9 +33,7 @@ namespace Biblioteca_Jogos.Site
 
                 //Redireciona o usuário para tela de login caso o mesmo não esteja autenticado
                 FormsAuthentication.RedirectFromLoginPage(usuario.Nome, false);
-
-                //A Sessão do usuário irá durar 30mim
-                Session.Timeout = 30;
+                                
                 Session["Perfil"] = usuario.Perfil;
             }
             catch (UsuarioNaoCadastradoExceptions)

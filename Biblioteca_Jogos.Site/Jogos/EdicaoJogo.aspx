@@ -21,7 +21,7 @@
         </div>
         <div class="form-group">
             <label>Imagem:</label>
-            <asp:FileUpload runat="server" />
+            <asp:FileUpload ID="FileUploadImagem" runat="server" />
         </div>
         <div class="form-group">
             <label>Genero:</label>
@@ -36,6 +36,7 @@
         <asp:Button Text="Gravar" runat="server" ID="BtnGravar" CssClass="btn btn-primary" OnClick="BtnGravar_Click" />
         <br />
         <asp:Label ID="LblStatus" runat="server" />
+        <asp:Label ID="LblResultado" runat="server" />
     </div>
     <br />
     <asp:ValidationSummary runat="server" />

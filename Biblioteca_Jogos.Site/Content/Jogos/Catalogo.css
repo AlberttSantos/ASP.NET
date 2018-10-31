@@ -9,8 +9,7 @@
 
 .capa-jogo {
     width: 170px;
-    height: 200px;
-    border: 1px solid black;
+    height: 200px;   
 }
 
 .capa-jogo img:first-of-type{

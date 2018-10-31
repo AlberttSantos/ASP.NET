@@ -21,15 +21,70 @@ namespace Biblioteca_Jogos.Site.Jogos
 
             if (!Page.IsPostBack)
             {
+                CarregarEditoresDdl();
+                CareegarGenerosDdl();
                 CarregarJogo();
-                //CarregarEditoresDdl();
-                //CareegarGenerosDdl();
             }
 
         }
+
         protected void BtnGravar_Click(object sender, EventArgs e)
         {
-            // _jogoBo.EditarJogos(_jogo);
+            _jogo = new Jogo();
+
+            _jogo.Id = ObeterIdJogo();
+            _jogo.Titulo = TxtTitulo.Text;
+            _jogo.ValorPago = string.IsNullOrWhiteSpace(TxtValorPago.Text) ? (double?)null : Convert.ToDouble(TxtValorPago.Text);
+            //_jogo.DataCompra = string.IsNullOrWhiteSpace(DataCompra.Text) ? (DateTime?)null : Convert.ToDateTime(DataCompra.Text);
+            _jogo.Imagem = GravarImagemNoDisco();
+            _jogo.Id_Editor = Convert.ToInt32(DdlEditor.SelectedValue);
+            _jogo.Id_Genero = Convert.ToInt32(DdlGenero.SelectedValue);
+
+            try
+            {
+                _jogoBo = new JogoBo();
+                _jogoBo.EditarJogo(_jogo);
+
+                //Redirecionar para pagina inicial
+                Response.Redirect("Catalogo.aspx");
+
+            }
+            catch (Exception)
+            {
+
+                LblResultado.Text = "Erro ao salvar dados";
+            }
+
+        }
+
+        private string GravarImagemNoDisco()
+        {
+            //Se o fileupload tiver um arquivo
+            if (FileUploadImagem.HasFile)
+            {
+                try
+                {
+                    //Caminho de salvamento da imagem
+                    var caminho = AppDomain.CurrentDomain.BaseDirectory + @"Content\ImagensJogos\";
+
+                    //Pega a data/hora em que foi salvo o arquivo
+                    var fileName = DateTime.Now.ToString("yyyyMMddhhmmss") + "_" + FileUploadImagem.FileName;
+
+                    //Salva o arquivo
+                    FileUploadImagem.SaveAs(caminho + fileName);
+
+                    return fileName;
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public void CarregarJogo()
@@ -37,13 +92,16 @@ namespace Biblioteca_Jogos.Site.Jogos
             //Obtem ID da querystring
             var id = ObeterIdJogo();
 
-            _jogoBo = new JogoBo();        
+            _jogoBo = new JogoBo();
 
             var jogoSelecionado = _jogoBo.CarregarJogoSelecionado(id);
 
             TxtTitulo.Text = jogoSelecionado.Titulo;
             TxtValorPago.Text = jogoSelecionado.ValorPago.ToString();
-            DataCompra.Text = Convert.ToDateTime(jogoSelecionado.DataCompra).ToString("dd/MM/yyyy");
+            
+            //Se o valor não for vazio set a data, se não salve a data como empty
+            DataCompra.Text = jogoSelecionado.DataCompra.HasValue ? jogoSelecionado.DataCompra.Value.ToString("yyyy-MM-dd") : string.Empty;
+
             DdlEditor.SelectedValue = jogoSelecionado.Id_Editor.ToString();
             DdlGenero.SelectedValue = jogoSelecionado.Id_Genero.ToString();
         }

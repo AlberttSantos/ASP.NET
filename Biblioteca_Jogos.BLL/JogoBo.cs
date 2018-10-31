@@ -41,7 +41,7 @@ namespace Biblioteca_Jogos.BLL
 
             if (linhasAfetadas == 0)
             {
-                throw new UsuarioNaoCadastradoExceptions();
+                throw new EdicaoNaoEfetuadaException();
             }
         }
 
@@ -52,6 +52,19 @@ namespace Biblioteca_Jogos.BLL
                 || jogo.Id_Genero == 0)
             {
                 throw new UsuarioNaoCadastradoExceptions();
+            }
+        }
+
+        public void EditarJogo(Jogo jogo)
+        {
+            ValidarJogo(jogo);
+
+            _jogoDao = new JogoDao();
+            var linhasAfetadas = _jogoDao.EditarJogo(jogo);
+
+            if(linhasAfetadas == 0)
+            {
+                throw new EdicaoNaoEfetuadaException();
             }
         }
     }
