@@ -2,10 +2,12 @@
 using Biblioteca_Jogos.Entities;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.IO;
 
 namespace Biblioteca_Jogos.Site.Jogos
 {
@@ -35,21 +37,28 @@ namespace Biblioteca_Jogos.Site.Jogos
             _jogo.Id = ObeterIdJogo();
             _jogo.Titulo = TxtTitulo.Text;
             _jogo.ValorPago = string.IsNullOrWhiteSpace(TxtValorPago.Text) ? (double?)null : Convert.ToDouble(TxtValorPago.Text);
-            //_jogo.DataCompra = string.IsNullOrWhiteSpace(DataCompra.Text) ? (DateTime?)null : Convert.ToDateTime(DataCompra.Text);
-            _jogo.Imagem = GravarImagemNoDisco();
+            _jogo.DataCompra = string.IsNullOrWhiteSpace(DataCompra.Text) ? (DateTime?)null : Convert.ToDateTime(DataCompra.Text);
+
+            //Pega a data/hora do upload do arquivo
+            var fileName = DateTime.Now.ToString("yyyyMMddhhmmss") + "_" + FileUploadImagem.FileName;
+
+            _jogo.Imagem = fileName;
             _jogo.Id_Editor = Convert.ToInt32(DdlEditor.SelectedValue);
             _jogo.Id_Genero = Convert.ToInt32(DdlGenero.SelectedValue);
 
             try
             {
                 _jogoBo = new JogoBo();
-                _jogoBo.EditarJogo(_jogo);
+
+                GravarImagemNoDisco(fileName);
+
+                _jogoBo.EditarJogo(_jogo);   
 
                 //Redirecionar para pagina inicial
                 Response.Redirect("Catalogo.aspx");
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 LblResultado.Text = "Erro ao salvar dados";
@@ -57,7 +66,7 @@ namespace Biblioteca_Jogos.Site.Jogos
 
         }
 
-        private string GravarImagemNoDisco()
+        private string GravarImagemNoDisco(string fileName)
         {
             //Se o fileupload tiver um arquivo
             if (FileUploadImagem.HasFile)
@@ -65,10 +74,7 @@ namespace Biblioteca_Jogos.Site.Jogos
                 try
                 {
                     //Caminho de salvamento da imagem
-                    var caminho = AppDomain.CurrentDomain.BaseDirectory + @"Content\ImagensJogos\";
-
-                    //Pega a data/hora em que foi salvo o arquivo
-                    var fileName = DateTime.Now.ToString("yyyyMMddhhmmss") + "_" + FileUploadImagem.FileName;
+                    var caminho = AppDomain.CurrentDomain.BaseDirectory + @"Content\ImagensJogos\";                    
 
                     //Salva o arquivo
                     FileUploadImagem.SaveAs(caminho + fileName);

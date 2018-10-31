@@ -145,14 +145,13 @@ namespace Biblioteca_Jogos.DAL
             {
                 var command = new SqlCommand();
                 command.Connection = Conexao.connection;
-                command.CommandText = @"UPDATE JOGO SET titulo = @titulo, valorPago = @valorPago, imagem = @imagem
-                                  ,dataCompra = @dataCompra, id_editor = @id_editor, id_genero = @idgenero WHERE id = @id";
+                command.CommandText = @"UPDATE JOGO SET titulo = @titulo, valorPago = @valorPago, imagem = @imagem, dataCompra = @dataCompra, id_editor = @id_editor, id_genero = @id_genero WHERE id = @id";
 
                 command.Parameters.AddWithValue("@id", jogo.Id);
                 command.Parameters.AddWithValue("@titulo", jogo.Titulo);
                 command.Parameters.AddWithValue("@valorPago", jogo.ValorPago);
                 command.Parameters.AddWithValue("@imagem", jogo.Imagem);
-               // command.Parameters.AddWithValue("@dataCompra", jogo.DataCompra.Value.ToString("yyyy-MM-dd"));
+                command.Parameters.AddWithValue("@dataCompra", jogo.DataCompra);
                 command.Parameters.AddWithValue("@id_editor", jogo.Id_Editor);
                 command.Parameters.AddWithValue("@id_genero", jogo.Id_Genero);
 
@@ -160,7 +159,7 @@ namespace Biblioteca_Jogos.DAL
 
                 return command.ExecuteNonQuery();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 throw;

@@ -45,7 +45,7 @@ namespace Biblioteca_Jogos.Site.Jogos
                 Response.Redirect("Catalogo.aspx");
                 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 LblResultado.Text = "Erro ao salvar dados";
